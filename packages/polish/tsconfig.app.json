@@ -25,5 +25,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src", "public"],
+  "exclude": ["src/**/*.stories.tsx"]
 }
