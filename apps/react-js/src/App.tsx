@@ -1,12 +1,10 @@
-import { Button } from "@gen-z/ui";
+import { Button } from "@gen-z/polish";
 
 function App() {
   return (
     <section>
       <h1>React</h1>
-      <Button primary onClick={() => alert("hi")}>
-        Click
-      </Button>
+      <Button>Click</Button>
     </section>
   );
 }
