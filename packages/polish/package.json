@@ -25,11 +25,11 @@
   ],
   "type": "module",
   "scripts": {
-    "dev": "node ./postinstall.js && vite",
+    "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "storybook": "node ./postinstall.js && storybook dev -p 6006",
+    "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "postinstall": "node ./postinstall.js"
   },

@@ -1,27 +1,33 @@
 import { Editor } from "@tinymce/tinymce-react";
-import React, { useRef } from "react";
-import { Editor as EditorType } from "tinymce";
+import { InitOptions } from "@tinymce/tinymce-react/lib/cjs/main/ts/components/Editor";
+import React from "react";
+import { toolbar } from "./tinymce.toolbar";
 
-const TinyMce = () => {
-  const editorRef = useRef<EditorType | null>(null);
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-    }
-  };
-  console.log(import.meta.env.BASE_URL);
+interface Props {
+  value?: string;
+  defaultValue?: string;
+  init?: InitOptions;
+  onChange?: (value: string) => void;
+}
+
+const TinyMce = ({ value, defaultValue, init, onChange }: Props) => {
   return (
     <React.Fragment>
       <Editor
         tinymceScriptSrc="/tinymce/tinymce.min.js"
-        licenseKey="your-license-key"
-        onInit={(_evt, editor) => (editorRef.current = editor)}
-        initialValue="<p>This is the initial content of the editor.</p>"
+        initialValue={defaultValue}
+        value={value}
         init={{
-          height: 500,
+          base_url: "/tinymce",
+          // skin_url: "/ui/oxide",
+          // content_css: "/default",
+          // icons: "/default",
+          min_height: 250,
+          max_height: 500,
           menubar: false,
+          statusbar: false,
+          highlight_on_focus: false,
           plugins: [
-            "advlist",
             "autolink",
             "lists",
             "link",
@@ -30,7 +36,6 @@ const TinyMce = () => {
             "anchor",
             "searchreplace",
             "visualblocks",
-            "code",
             "fullscreen",
             "insertdatetime",
             "media",
@@ -38,16 +43,15 @@ const TinyMce = () => {
             "preview",
             "help",
             "wordcount",
+            "supercode",
           ],
-          toolbar:
-            "undo redo | blocks | " +
-            "bold italic forecolor | alignleft aligncenter " +
-            "alignright alignjustify | bullist numlist outdent indent | " +
-            "removeformat | help",
-          content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+          toolbar: toolbar,
+          ...init,
+        }}
+        onEditorChange={(value) => {
+          if (onChange) onChange(value);
         }}
       />
-      <button onClick={log}>Log editor content</button>
     </React.Fragment>
   );
 };
